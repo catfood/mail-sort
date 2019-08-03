@@ -4,11 +4,11 @@ using System.Text;
 
 namespace MailSort.Rules
 {
-    public class MailRules
+    public class MailRules : IRulesService
     {
-        public void Apply(Models.MailModel input)
+        public IEnumerable<Models.MailAction> GetActionsForMessage(Models.MailModel input)
         {
-
+            throw new NotImplementedException();
         }
     }
 }

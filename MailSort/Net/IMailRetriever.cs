@@ -1,4 +1,7 @@
-﻿namespace MailSort
+﻿
+using System.Collections.Generic;
+
+namespace MailSort.Net
 {
     interface IMailRetriever
     {
@@ -8,5 +11,7 @@
 
         string Hello();
         void ListMessages();
+        IEnumerable<Models.MailModel> GetInbox();
+        void Execute(Models.MailModel m, Models.MailAction a);
     }
 }

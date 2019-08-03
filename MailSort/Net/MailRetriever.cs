@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using MailKit.Net.Imap;
 using System.Linq;
+using MailSort.Models;
 
-namespace MailSort
+namespace MailSort.Net
 {
     class MailRetriever : IMailRetriever
     {
@@ -57,7 +58,7 @@ namespace MailSort
                         Subject = msg.Subject,
                         Date = msg.Date.DateTime
                     };
-                    rules.Apply(newModel);
+                    rules.GetActionsForMessage(newModel);
                 }
                 client.Disconnect(true);
             }
@@ -76,6 +77,16 @@ namespace MailSort
                     throw new ArgumentOutOfRangeException("We can't handle From addresses that aren't Mailbox addresses!");
                 }
             }
+        }
+
+        public IEnumerable<MailModel> GetInbox()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Execute(MailModel m, MailAction a)
+        {
+            throw new NotImplementedException();
         }
     }
 }
