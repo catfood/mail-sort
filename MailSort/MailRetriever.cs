@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using MailKit.Net.Imap;
+using System.Linq;
 
 namespace MailSort
 {
@@ -42,12 +42,39 @@ namespace MailSort
                 Console.WriteLine("Recent messages: {0}", inbox.Recent);
 
                 int count = 0;
+                var hash = new Dictionary<string, List<MimeKit.MimeMessage>>();
+                var rules = new Rules.MailRules();
                 foreach (var msg in inbox)
                 {
-                    Console.WriteLine($"{count} --> {msg.From}");
+                    QuickDisplay(msg);
+                    var fromAddress = msg.From.First() as MimeKit.MailboxAddress; // exception if empty
+                    string fileUnder = fromAddress.Address;
                     if (++count >= 100) break;
+                    var newModel = new Models.MailModel
+                    {
+                        From = (msg.From.First() as MimeKit.MailboxAddress).Address,
+                        To = msg.To.Where(t => t is MimeKit.MailboxAddress).Select(t => (t as MimeKit.MailboxAddress).Address).ToList(),
+                        Subject = msg.Subject,
+                        Date = msg.Date.DateTime
+                    };
+                    rules.Apply(newModel);
                 }
                 client.Disconnect(true);
+            }
+        }
+
+        void QuickDisplay(MimeKit.MimeMessage msg)
+        {
+            foreach (var fromAddr in msg.From)
+            {
+                if (fromAddr is MimeKit.MailboxAddress)
+                {
+                    Console.WriteLine((fromAddr as MimeKit.MailboxAddress).Address);
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("We can't handle From addresses that aren't Mailbox addresses!");
+                }
             }
         }
     }
