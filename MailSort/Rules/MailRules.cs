@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.Configuration;
+using System.Text.RegularExpressions;
 
 namespace MailSort.Rules
 {
@@ -15,7 +14,7 @@ namespace MailSort.Rules
         {
             var field = input.AllHeaders.Find(hdr => hdr.Key == MatchingFieldName);
             if (field.Key == null) return false;
-            var matchre = new System.Text.RegularExpressions.Regex(MatchingFieldValue);
+            var matchre = new Regex(MatchingFieldValue);
             return matchre.IsMatch(field.Value);
         }
     }
