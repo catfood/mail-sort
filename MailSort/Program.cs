@@ -24,7 +24,7 @@ namespace MailSort
                 var actions = rulesService.GetActionsForMessage(modelMessage);
                 foreach (var action in actions)
                 {
-                    retrieverService.Execute(modelMessage, action);
+                    action.Execute(modelMessage);
                 }
             }
         }

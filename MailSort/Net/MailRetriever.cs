@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MailKit.Net.Imap;
 using System.Linq;
 using MailSort.Models;
@@ -34,17 +33,9 @@ namespace MailSort.Net
                 var inbox = client.Inbox;
                 inbox.Open(MailKit.FolderAccess.ReadOnly);
 
-                Console.WriteLine("Total messages: {0}", inbox.Count);
-                Console.WriteLine("Recent messages: {0}", inbox.Recent);
-
-                //var hash = new Dictionary<string, List<MimeKit.MimeMessage>>();
-                //var rules = new Rules.MailRules();
                 foreach (var msg in inbox)
                 {
-                    //QuickDisplay(msg);
-                    var fromAddress = msg.From.First() as MimeKit.MailboxAddress; // exception if empty
-                    string fileUnder = fromAddress.Address;
-                    var newModel = new Models.MailModel
+                    var newModel = new MailModel
                     {
                         From = (msg.From.First() as MimeKit.MailboxAddress).Address,
                         To = msg.To.Where(t => t is MimeKit.MailboxAddress).Select(t => (t as MimeKit.MailboxAddress).Address).ToList(),
@@ -52,33 +43,8 @@ namespace MailSort.Net
                         Date = msg.Date.DateTime
                     };
                     yield return newModel;
-                    //rules.GetActionsForMessage(newModel);
                 }
                 client.Disconnect(true);
-            }
-        }
-
-        [Obsolete]
-        void QuickDisplay(MimeKit.MimeMessage msg)
-        {
-            foreach (var fromAddr in msg.From)
-            {
-                if (fromAddr is MimeKit.MailboxAddress)
-                {
-                    Console.WriteLine((fromAddr as MimeKit.MailboxAddress).Address);
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException("We can't handle From addresses that aren't Mailbox addresses!");
-                }
-            }
-        }
-
-        public void Execute(MailModel m, IMailAction a)
-        {
-            if (a is Models.NullMailAction)
-            {
-                (a as Models.NullMailAction).Null();
             }
         }
     }
