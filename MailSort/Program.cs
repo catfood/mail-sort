@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MailSort.Net;
 using MailSort.Rules;
+using System;
 
 namespace MailSort
 {
@@ -10,7 +11,8 @@ namespace MailSort
         {
             var serviceCollection = new ServiceCollection()
              .AddSingleton<Configuration.IConfiguration, Configuration.Configuration>()
-             .AddTransient<IMailRetriever, MailRetriever>();
+             .AddTransient<IMailRetriever, MailRetriever>()
+             .AddTransient<IRulesService, MailRules>();
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var retrieverService = serviceProvider.GetService<IMailRetriever>();
@@ -18,6 +20,7 @@ namespace MailSort
             var inbox = retrieverService.GetInbox();
             foreach (var modelMessage in inbox)
             {
+                Console.WriteLine($"Got message from {modelMessage.From}");
                 var actions = rulesService.GetActionsForMessage(modelMessage);
                 foreach (var action in actions)
                 {

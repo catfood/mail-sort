@@ -9,9 +9,7 @@ namespace MailSort.Net
         string IMAPPassword { get; set; }
         string IMAPUserName { get; set; }
 
-        string Hello();
-        void ListMessages();
         IEnumerable<Models.MailModel> GetInbox();
-        void Execute(Models.MailModel m, Models.MailAction a);
+        void Execute(Models.MailModel m, Models.IMailAction a);
     }
 }

@@ -6,9 +6,12 @@ namespace MailSort.Rules
 {
     public class MailRules : IRulesService
     {
-        public IEnumerable<Models.MailAction> GetActionsForMessage(Models.MailModel input)
+        public IEnumerable<Models.IMailAction> GetActionsForMessage(Models.MailModel input)
         {
-            throw new NotImplementedException();
+            return new List<Models.IMailAction>()
+            {
+                new Models.NullMailAction()
+            };
         }
     }
 }

@@ -1,10 +1,20 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MailSort.Models
 {
-    public class MailAction
+    public interface IMailAction
     {
+
+    }
+
+    public class NullMailAction: IMailAction
+    {
+        public void Null()
+        {
+
+        }
     }
 }

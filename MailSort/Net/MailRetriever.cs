@@ -13,18 +13,13 @@ namespace MailSort.Net
             _confModel = conf.Get();
         }
 
-        private Models.Config _confModel;
+        private Config _confModel;
 
         public string IMAPHost { get; set; }
         public string IMAPUserName { get; set; }
         public string IMAPPassword { get; set; }
 
-        public string Hello()
-        {
-            return "Hello, World!";
-        }
-
-        public void ListMessages()
+        public IEnumerable<MailModel> GetInbox()
         {
             string uri = $"imap:{IMAPHost}";
             using (var client = new ImapClient())
@@ -42,15 +37,13 @@ namespace MailSort.Net
                 Console.WriteLine("Total messages: {0}", inbox.Count);
                 Console.WriteLine("Recent messages: {0}", inbox.Recent);
 
-                int count = 0;
-                var hash = new Dictionary<string, List<MimeKit.MimeMessage>>();
-                var rules = new Rules.MailRules();
+                //var hash = new Dictionary<string, List<MimeKit.MimeMessage>>();
+                //var rules = new Rules.MailRules();
                 foreach (var msg in inbox)
                 {
-                    QuickDisplay(msg);
+                    //QuickDisplay(msg);
                     var fromAddress = msg.From.First() as MimeKit.MailboxAddress; // exception if empty
                     string fileUnder = fromAddress.Address;
-                    if (++count >= 100) break;
                     var newModel = new Models.MailModel
                     {
                         From = (msg.From.First() as MimeKit.MailboxAddress).Address,
@@ -58,12 +51,14 @@ namespace MailSort.Net
                         Subject = msg.Subject,
                         Date = msg.Date.DateTime
                     };
-                    rules.GetActionsForMessage(newModel);
+                    yield return newModel;
+                    //rules.GetActionsForMessage(newModel);
                 }
                 client.Disconnect(true);
             }
         }
 
+        [Obsolete]
         void QuickDisplay(MimeKit.MimeMessage msg)
         {
             foreach (var fromAddr in msg.From)
@@ -79,14 +74,12 @@ namespace MailSort.Net
             }
         }
 
-        public IEnumerable<MailModel> GetInbox()
+        public void Execute(MailModel m, IMailAction a)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Execute(MailModel m, MailAction a)
-        {
-            throw new NotImplementedException();
+            if (a is Models.NullMailAction)
+            {
+                (a as Models.NullMailAction).Null();
+            }
         }
     }
 }
