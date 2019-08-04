@@ -20,7 +20,6 @@ namespace MailSort
             var inbox = retrieverService.GetInbox();
             foreach (var modelMessage in inbox)
             {
-                Console.WriteLine($"Got message from {modelMessage.From}");
                 var actions = rulesService.GetActionsForMessage(modelMessage);
                 foreach (var action in actions)
                 {

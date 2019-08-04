@@ -13,7 +13,10 @@ namespace MailSort.Rules
         public Type ActionType { get; set; }
         public bool Match(Models.MailModel input)
         {
-            return true;
+            var field = input.AllHeaders.Find(hdr => hdr.Key == MatchingFieldName);
+            if (field.Key == null) return false;
+            var matchre = new System.Text.RegularExpressions.Regex(MatchingFieldValue);
+            return matchre.IsMatch(field.Value);
         }
     }
 
@@ -31,7 +34,14 @@ namespace MailSort.Rules
                 RuleName = "Default Null Rule",
                 ActionType = typeof(Models.NullMailAction),
                 MatchingFieldName = "From",
-                MatchingFieldValue = "fred"
+                MatchingFieldValue = ".*"
+            });
+            rules.Add(new Rule
+            {
+                RuleName = "Show it",
+                ActionType = typeof(Models.ReportMailAction),
+                MatchingFieldName = "From",
+                MatchingFieldValue = "judy"
             });
         }
 

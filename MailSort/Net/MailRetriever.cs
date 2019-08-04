@@ -40,8 +40,9 @@ namespace MailSort.Net
                         From = (msg.From.First() as MimeKit.MailboxAddress).Address,
                         To = msg.To.Where(t => t is MimeKit.MailboxAddress).Select(t => (t as MimeKit.MailboxAddress).Address).ToList(),
                         Subject = msg.Subject,
-                        Date = msg.Date.DateTime
-                    };
+                        Date = msg.Date.DateTime,
+                        AllHeaders = msg.Headers.Select(a => new KeyValuePair<string, string>(a.Field, a.Value)).ToList()
+                };
                     yield return newModel;
                 }
                 client.Disconnect(true);
