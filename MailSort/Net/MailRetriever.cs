@@ -9,10 +9,10 @@ namespace MailSort.Net
     {
         public MailRetriever(Configuration.IConfiguration conf)
         {
-            _confModel = conf.Get();
+            _confModel = conf.IMAP();
         }
 
-        private Config _confModel;
+        private IMAPConfig _confModel;
 
         public string IMAPHost { get; set; }
         public string IMAPUserName { get; set; }

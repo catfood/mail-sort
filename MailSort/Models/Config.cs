@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MailSort.Models
 {
-    public class Config
+    public class IMAPConfig
     {
         public string IMAPHost { get; set; }
         public int IMAPPort { get; set; }

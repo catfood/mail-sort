@@ -1,33 +1,45 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace MailSort.Configuration
 {
     public interface IConfiguration
     {
-        Models.Config Get();
+        Models.IMAPConfig IMAP();
     }
 
     public sealed class Configuration: IConfiguration
     {
         private static readonly Lazy<Configuration> _instance = new Lazy<Configuration>(() => new Configuration());
-        private Models.Config Value;
+        private Models.IMAPConfig IMAPValue;
 
-        public Models.Config Get()
+        public Models.IMAPConfig IMAP()
         {
-            return _instance.Value.Value;
+            return _instance.Value.IMAPValue;
         }
+
+        /*
+        public Models.RulesConfig Rules()
+        {
+            return _instance.Value.RulesList;
+        }
+        */
 
         public Configuration()
         {
             var builder = new ConfigurationBuilder();
+            string appSettingsFileName = GetAppSettingsFileName();
+            appSettingsFileName = "appsettings.json";
+            builder.AddJsonFile(appSettingsFileName);
             builder.AddUserSecrets(System.Reflection.Assembly.GetExecutingAssembly(), false);
             var conf = builder.Build();
+            var foo = conf.GetChildren();
             foreach (var x in conf.GetChildren())
             {
                 System.Diagnostics.Debug.WriteLine($"Child element is {x.Key}.");
             }
-            Value = new Models.Config
+            IMAPValue = new Models.IMAPConfig
             {
                 IMAPHost = conf["MailSort:IMAPHost"],
                 IMAPPort = Convert.ToInt32(conf["MailSort:IMAPPort"]),
@@ -35,6 +47,13 @@ namespace MailSort.Configuration
                 IMAPUser = conf["MailSort:IMAPUser"],
                 IMAPPassword = conf["MailSort:IMAPPassword"]
             };
+            object rules = foo.FirstOrDefault(section => section.Key == "Rules");
+            System.Diagnostics.Debug.Assert(rules != null);
+        }
+
+        public string GetAppSettingsFileName()
+        {
+            return $"{Environment.GetEnvironmentVariable("CONFIG_DIRECTORY")}\\appsettings.json";
         }
     }
 }
