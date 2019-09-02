@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace MailSort.Rules
 {
@@ -27,7 +28,10 @@ namespace MailSort.Rules
         public MailRules(Configuration.IConfiguration conf)
         {
             _conf = conf;
-            rules = new List<Rule>();
+            using (var db = new LiteDB.LiteDatabase(@"rules.db"))
+            {
+                rules = db.GetCollection<Rule>("rules").FindAll().ToList();
+            }
             rules.Add(new Rule
             {
                 RuleName = "Default Null Rule",
