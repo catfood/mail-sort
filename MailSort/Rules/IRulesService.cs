@@ -5,6 +5,6 @@ namespace MailSort.Rules
 {
     public interface IRulesService
     {
-        IEnumerable<IMailAction> GetActionsForMessage(MailModel input);
+        IEnumerable<MailAction> GetActionsForMessage(MailModel input);
     }
 }

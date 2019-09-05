@@ -17,13 +17,15 @@ namespace MailSort
 
             var retrieverService = serviceProvider.GetService<IMailRetriever>();
             var rulesService = serviceProvider.GetService<IRulesService>();
+            retrieverService.Open();
             var inbox = retrieverService.GetInbox();
+            retrieverService.Close();
             foreach (var modelMessage in inbox)
             {
                 var actions = rulesService.GetActionsForMessage(modelMessage);
                 foreach (var action in actions)
                 {
-                    action.Execute(modelMessage);
+                    var actionResult = retrieverService.Execute(action, modelMessage);
                 }
             }
         }
