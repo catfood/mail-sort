@@ -27,6 +27,17 @@ namespace MailSort.Rules
         }
     }
 
+    public class ToOrFromRule : IRule
+    {
+        public string RuleName { get; set; }
+        public string MatchingFieldValue { get; set; }
+        public bool Match(Models.MailModel input)
+        {
+            var matchre = new Regex(MatchingFieldValue);
+            return matchre.IsMatch(input.From) || input.To.Any(to => matchre.IsMatch(to));
+        }
+    }
+
     public class DateFieldRule: IRule
     {
         public string RuleName { get; set; }
@@ -48,6 +59,16 @@ namespace MailSort.Rules
             {
                 return Default;
             }
+        }
+    }
+
+    public class FlagRule: IRule
+    {
+        public string RuleName { get; set; }
+        public string FlagValue { get; set; }
+        public bool Match(Models.MailModel input)
+        {
+            return false; // FIXME
         }
     }
 
@@ -78,6 +99,7 @@ namespace MailSort.Rules
     {
         public IRule Rule { get; set; }
         public Models.MailAction Action { get; set; }
+        public bool StopIfRun { get; set; }
     }
 
     public class MailRules : IRulesService
@@ -95,7 +117,17 @@ namespace MailSort.Rules
             var nullAction = new Models.MailAction
             {
                 ActionType = Models.MailActionType.Null,
-                 Args = null
+                Args = null
+            };
+            var haroAction = new Models.MailAction
+            {
+                ActionType = Models.MailActionType.Move,
+                Args = { "delete-these", "HARO-delete-these" }
+            };
+            var jojoAction = new Models.MailAction
+            {
+                ActionType = Models.MailActionType.Move,
+                Args = { "friends", "jojo" }
             };
             var threeDayRule = new DateFieldRule
             {
@@ -111,23 +143,32 @@ namespace MailSort.Rules
                 MatchingFieldName = "From",
                 MatchingFieldValue = "HARO"
             };
-            var subjectRule = new StringFieldRule
+            var priorityFlagRule = new FlagRule
             {
-                RuleName = "Contains letter \"A\"",
-                MatchingFieldName = "Subject",
-                MatchingFieldValue = "a"
+                RuleName = "Priority Flag",
+                FlagValue = "P"
             };
-            var judyRule = new StringFieldRule
+            var jojoRule = new ToOrFromRule
             {
-                RuleName = "Messages from Judy",
-                MatchingFieldName = "From",
-                MatchingFieldValue = "judy"
+                RuleName = "Messages to and from Jojo",
+                MatchingFieldValue = "jojo@example.com"
             };
+
             rules.Add(new RuleActionPair
             {
-                Rule = judyRule,
-                Action = nullAction
+                Rule = priorityFlagRule,
+                Action = nullAction,
+                StopIfRun = true
             });
+
+            // Everything to or from Jojo gets stashed in the Jojo folder.
+            rules.Add(new RuleActionPair
+            {
+                Rule = jojoRule,
+                Action = jojoAction
+            });
+
+            // If it's from HARO and it's more than three days ago, make it go away.
             rules.Add(new RuleActionPair
             {
                 Rule = new CompoundRule
@@ -136,7 +177,7 @@ namespace MailSort.Rules
                     Conjunction = RuleConjunction.All,
                     SubordinateRules = new List<IRule> { HARORule, threeDayRule }
                 },
-                Action = nullAction
+                Action = haroAction
             });
         }
 
@@ -148,6 +189,7 @@ namespace MailSort.Rules
                 if (ruleAction.Rule.Match(m))
                 {
                     result.Add(ruleAction.Action);
+                    if (ruleAction.StopIfRun) break;
                 }
             }
             return result;
