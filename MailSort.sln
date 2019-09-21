@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSort", "MailSort\MailSort.csproj", "{ECD8532D-09B6-4F32-845B-EA40353916CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSortTest", "MailSortTest\MailSortTest.csproj", "{C441D148-FE13-4752-AECF-2947AA85D2F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSortTest", "MailSortTest\MailSortTest.csproj", "{C441D148-FE13-4752-AECF-2947AA85D2F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSortAPI", "MailSortAPI\MailSortAPI.csproj", "{F0BE2497-DA31-4909-8DE7-710A7A98872A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailDTO", "MailDTO\MailDTO.csproj", "{35F08FFC-5794-4307-B7CD-270448BF4862}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{C441D148-FE13-4752-AECF-2947AA85D2F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C441D148-FE13-4752-AECF-2947AA85D2F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C441D148-FE13-4752-AECF-2947AA85D2F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0BE2497-DA31-4909-8DE7-710A7A98872A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0BE2497-DA31-4909-8DE7-710A7A98872A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0BE2497-DA31-4909-8DE7-710A7A98872A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0BE2497-DA31-4909-8DE7-710A7A98872A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35F08FFC-5794-4307-B7CD-270448BF4862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35F08FFC-5794-4307-B7CD-270448BF4862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35F08FFC-5794-4307-B7CD-270448BF4862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35F08FFC-5794-4307-B7CD-270448BF4862}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
