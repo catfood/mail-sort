@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSort", "MailSort\MailSo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSortTest", "MailSortTest\MailSortTest.csproj", "{C441D148-FE13-4752-AECF-2947AA85D2F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSortAPI", "MailSortAPI\MailSortAPI.csproj", "{F0BE2497-DA31-4909-8DE7-710A7A98872A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSortAPI", "MailSortAPI\MailSortAPI.csproj", "{F0BE2497-DA31-4909-8DE7-710A7A98872A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailDTO", "MailDTO\MailDTO.csproj", "{35F08FFC-5794-4307-B7CD-270448BF4862}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailDTO", "MailDTO\MailDTO.csproj", "{35F08FFC-5794-4307-B7CD-270448BF4862}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSortBL", "MailSortBL\MailSortBL.csproj", "{DA3B0CD6-0E5C-404A-B58F-8DAB738BA3DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{35F08FFC-5794-4307-B7CD-270448BF4862}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F08FFC-5794-4307-B7CD-270448BF4862}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35F08FFC-5794-4307-B7CD-270448BF4862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA3B0CD6-0E5C-404A-B58F-8DAB738BA3DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA3B0CD6-0E5C-404A-B58F-8DAB738BA3DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA3B0CD6-0E5C-404A-B58F-8DAB738BA3DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA3B0CD6-0E5C-404A-B58F-8DAB738BA3DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
