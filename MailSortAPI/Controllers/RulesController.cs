@@ -15,7 +15,7 @@ namespace MailSortAPI.Controllers
         [HttpGet]
         public ActionResult<RulesetDTO> Get()
         {
-            return new RulesetDTO { };
+            return Ok();
         }
 
         // PUT api/rules
