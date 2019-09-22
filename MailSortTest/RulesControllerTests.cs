@@ -13,7 +13,7 @@ namespace MailSortTest
         public void RulesControllerIsOK()
         {
             var controller = new MailSortAPI.Controllers.RulesController();
-            Assert.AreEqual(typeof(OkResult), controller.Get().Result.GetType());
+            Assert.IsInstanceOfType(controller.Get(),typeof(MailDTO.RulesetDTO));
         }
     }
 }
