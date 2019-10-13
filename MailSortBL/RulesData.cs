@@ -3,7 +3,7 @@ using MailDTO;
 
 namespace MailSortBL
 {
-    public class RulesData
+    public class RulesData : IRulesData
     {
         public RulesetDTO Load(string dbFile)
         {
@@ -13,6 +13,11 @@ namespace MailSortBL
         public void Save(string dbFile, RulesetDTO data)
         {
 
+        }
+
+        public void Delete(string dbFile)
+        {
+            System.IO.File.Delete(dbFile);
         }
     }
 }
