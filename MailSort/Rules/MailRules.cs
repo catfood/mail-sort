@@ -110,6 +110,9 @@ namespace MailSort.Rules
         public MailRules(Configuration.IConfiguration conf)
         {
             _conf = conf;
+            var bl = new MailSortBL.RulesData();
+            var rulesetDTO = bl.Load(@"rules.db");
+            // FIXME: convert the DTO to a list of RuleActionPairs.
             using (var db = new LiteDB.LiteDatabase(@"rules.db"))
             {
                 rules = db.GetCollection<RuleActionPair>("rules").FindAll().ToList();
