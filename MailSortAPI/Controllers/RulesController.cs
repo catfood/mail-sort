@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MailDTO;
+using MailSortBL;
 
 namespace MailSortAPI.Controllers
 {
@@ -11,23 +12,33 @@ namespace MailSortAPI.Controllers
     [ApiController]
     public class RulesController : ControllerBase
     {
+        const string dbFileName = @"rules.db";
+        IRulesData rulesRepository;
+
+        public RulesController(IRulesData data)
+        {
+            rulesRepository = data;
+        }
+
         // GET api/rules
         [HttpGet]
         public RulesetDTO Get()
         {
-            return new RulesetDTO { };
+            return rulesRepository.Load(dbFileName);
         }
 
         // PUT api/rules
         [HttpPut]
         public void Put([FromBody] RulesetDTO rules)
         {
+            rulesRepository.Save(dbFileName, rules);
         }
 
         // DELETE api/rules
         [HttpDelete]
         public void Delete()
         {
+            rulesRepository.Delete(dbFileName);
         }
     }
 }

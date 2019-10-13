@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LiteDB" Version="4.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
@@ -14,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MailDTO\MailDTO.csproj" />
+    <ProjectReference Include="..\MailSortBL\MailSortBL.csproj" />
   </ItemGroup>
 
 </Project>
