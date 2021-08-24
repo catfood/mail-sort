@@ -2,6 +2,8 @@
 using MailSort.Net;
 using MailSort.Rules;
 using System;
+using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace MailSort
 {
@@ -12,7 +14,9 @@ namespace MailSort
             var serviceCollection = new ServiceCollection()
              .AddSingleton<Configuration.IConfiguration, Configuration.Configuration>()
              .AddTransient<IMailRetriever, MailRetriever>()
-             .AddTransient<IRulesService, MailRules>();
+             .AddTransient<IRulesService, MailRules>()
+             .AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             var retrieverService = serviceProvider.GetService<IMailRetriever>();
@@ -27,6 +31,7 @@ namespace MailSort
                 {
                     var diff = DateTime.Now - startTime;
                     Console.WriteLine($"{count} mail items in {diff.TotalSeconds} seconds.");
+                    Log.Information("ping");
                 }
                 var actions = rulesService.GetActionsForMessage(modelMessage);
                 foreach (var action in actions)
