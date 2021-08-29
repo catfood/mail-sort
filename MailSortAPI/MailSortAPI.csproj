@@ -1,16 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.3" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\MailDTO\MailDTO.csproj" />
     <ProjectReference Include="..\MailSortBL\MailSortBL.csproj" />
   </ItemGroup>
-
 </Project>

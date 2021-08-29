@@ -1,15 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="4.1.4" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\MailDTO\MailDTO.csproj" />
   </ItemGroup>
-
 </Project>
