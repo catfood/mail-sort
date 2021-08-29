@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSortAPI", "MailSortAPI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailDTO", "MailDTO\MailDTO.csproj", "{35F08FFC-5794-4307-B7CD-270448BF4862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSortBL", "MailSortBL\MailSortBL.csproj", "{DA3B0CD6-0E5C-404A-B58F-8DAB738BA3DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailSortBL", "MailSortBL\MailSortBL.csproj", "{DA3B0CD6-0E5C-404A-B58F-8DAB738BA3DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
